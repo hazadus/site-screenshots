@@ -1,0 +1,45 @@
+name: Take screenshots
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  shot-scraper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - uses: actions/cache@v3
+        name: Configure pip caching
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip
+      - name: Cache Playwright browsers
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright/
+          key: ${{ runner.os }}-playwright
+      - name: Install dependencies
+        run: |
+          pip install shot-scraper
+          shot-scraper install
+      - name: Take shots
+        run: |
+          shot-scraper https://hazadus.ru/ --width 1280 --wait 10000
+          shot-scraper https://hazadus.ru/blogroll --width 1280 --wait 10000
+      - name: Commit and push
+        run: |-
+          git config user.name "Automated"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          timestamp=$(date -u)
+          git commit -m "${timestamp}" || exit 0
+          git pull --rebase
+          git push
