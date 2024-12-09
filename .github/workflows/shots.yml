@@ -39,7 +39,7 @@ jobs:
           pip install shot-scraper
           shot-scraper install
       - name: Take shots
-        run: |
+        run: |-
           shot-scraper https://hazadus.ru/ --width 1280 --wait 10000
           shot-scraper https://hazadus.ru/blogroll/ --width 1280 --wait 10000
           shot-scraper http://hazadus.ru/microblog/ --width 1280 --wait 10000
