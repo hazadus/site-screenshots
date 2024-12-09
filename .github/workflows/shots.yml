@@ -12,6 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Cache Oxipng
+        uses: actions/cache@v3
+        with:
+          path: ~/.cargo/
+          key: ${{ runner.os }}-cargo
+      - name: Install Oxipng if it is not installed
+        run: |
+          which oxipng || cargo install oxipng
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
@@ -33,7 +41,16 @@ jobs:
       - name: Take shots
         run: |
           shot-scraper https://hazadus.ru/ --width 1280 --wait 10000
-          shot-scraper https://hazadus.ru/blogroll --width 1280 --wait 10000
+          shot-scraper https://hazadus.ru/blogroll/ --width 1280 --wait 10000
+          shot-scraper http://hazadus.ru/microblog/ --width 1280 --wait 10000
+          shot-scraper https://anvlink.ru/ --width 1280 --wait 1000
+          shot-scraper http://nameapp.anverali.tech/ --width 1280 --wait 5000
+          shot-scraper https://speakers24.ru/ --width 1280 --wait 1000
+          shot-scraper https://hazadus.github.io/knowledge/ --width 1280 --wait 2000
+          shot-scraper https://github.com/hazadus/ --width 1280 --wait 5000
+      - name: Optimize PNGs
+        run: |-
+          oxipng -o 4 -i 0 --strip safe *.png
       - name: Commit and push
         run: |-
           git config user.name "Automated"
