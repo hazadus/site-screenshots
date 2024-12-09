@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  shot-scraper:
+  take-shots:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -40,18 +40,20 @@ jobs:
           shot-scraper install
       - name: Take shots
         run: |
-          today=$(date +"%Y-%m-%d")
-          shot-scraper https://hazadus.ru/ --width 1280 --wait 10000 -o "./screenshots/hazadus-ru.$today.png" && \
-          shot-scraper https://hazadus.ru/blogroll/ --width 1280 --wait 10000 -o "./screenshots/hazadus-ru-blogroll.$today.png" && \
-          shot-scraper http://hazadus.ru/microblog/ --width 1280 --wait 10000 -o "./screenshots/hazadus-ru-microblog.$today.png" && \
-          shot-scraper https://anvlink.ru/ --width 1280 --wait 1000 -o "./screenshots/anvlink-ru.$today.png" && \
-          shot-scraper http://nameapp.anverali.tech/ --width 1280 --wait 5000 -o "./screenshots/nameapp.$today.png" && \
-          shot-scraper https://speakers24.ru/ --width 1280 --wait 1000 -o "./screenshots/speakers24-ru.$today.png" && \
-          shot-scraper https://hazadus.github.io/knowledge/ --width 1280 --wait 2000 -o "./screenshots/knowdledge.$today.png" && \
-          shot-scraper https://github.com/hazadus/ --width 1280 --wait 5000 -o "./screenshots/github-hazadus.$today.png"
+          today=$(date +"%Y-%m-%d") && \
+          mkdir -p ./screenshots && \
+          shot-scraper https://hazadus.ru/ --width 1280 --wait 10000 -o "hazadus.ru.$today.png" && \
+          shot-scraper https://hazadus.ru/blogroll/ --width 1280 --wait 10000 -o "hazadus.ru-blogroll.$today.png" && \
+          shot-scraper http://hazadus.ru/microblog/ --width 1280 --wait 10000 -o "hazadus.ru-microblog.$today.png" && \
+          shot-scraper https://anvlink.ru/ --width 1280 --wait 1000 -o "anvlink-ru.$today.png" && \
+          shot-scraper http://nameapp.anverali.tech/ --width 1280 --wait 5000 -o "nameapp.$today.png" && \
+          shot-scraper https://speakers24.ru/ --width 1280 --wait 1000 -o "speakers24.ru.$today.png" && \
+          shot-scraper https://hazadus.github.io/knowledge/ --width 1280 --wait 2000 -o "knowdledge.$today.png" && \
+          shot-scraper https://github.com/hazadus/ --width 1280 --wait 5000 -o "github-hazadus.$today.png"
       - name: Optimize PNGs
         run: |-
-          oxipng -o 4 -i 0 --strip safe ./screenshots/*.png
+          oxipng -o 4 -i 0 --strip safe *.png && \
+          mv -f *.png ./screenshots/
       - name: Commit and push
         run: |-
           git config user.name "Automated"
