@@ -3,6 +3,8 @@ name: Take screenshots
 on:
   push:
   workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 2" # At 03:00 UTC on Tuesday: https://crontab.guru/#0_3_*_*_2
 
 permissions:
   contents: write
