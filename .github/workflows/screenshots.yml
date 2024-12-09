@@ -51,7 +51,7 @@ jobs:
           shot-scraper https://github.com/hazadus/ --width 1280 --wait 5000 -o "./screenshots/github-hazadus.$today.png"
       - name: Optimize PNGs
         run: |-
-          oxipng -o 4 -i 0 --strip safe *.png
+          oxipng -o 4 -i 0 --strip safe ./screenshots/*.png
       - name: Commit and push
         run: |-
           git config user.name "Automated"
