@@ -39,14 +39,14 @@ jobs:
           pip install shot-scraper
           shot-scraper install
       - name: Take shots
-        run: |-
-          shot-scraper https://hazadus.ru/ --width 1280 --wait 10000
-          shot-scraper https://hazadus.ru/blogroll/ --width 1280 --wait 10000
-          shot-scraper http://hazadus.ru/microblog/ --width 1280 --wait 10000
-          shot-scraper https://anvlink.ru/ --width 1280 --wait 1000
-          shot-scraper http://nameapp.anverali.tech/ --width 1280 --wait 5000
-          shot-scraper https://speakers24.ru/ --width 1280 --wait 1000
-          shot-scraper https://hazadus.github.io/knowledge/ --width 1280 --wait 2000
+        run: |
+          shot-scraper https://hazadus.ru/ --width 1280 --wait 10000 && \
+          shot-scraper https://hazadus.ru/blogroll/ --width 1280 --wait 10000 && \
+          shot-scraper http://hazadus.ru/microblog/ --width 1280 --wait 10000 && \
+          shot-scraper https://anvlink.ru/ --width 1280 --wait 1000 && \
+          shot-scraper http://nameapp.anverali.tech/ --width 1280 --wait 5000 && \
+          shot-scraper https://speakers24.ru/ --width 1280 --wait 1000 && \
+          shot-scraper https://hazadus.github.io/knowledge/ --width 1280 --wait 2000 && \
           shot-scraper https://github.com/hazadus/ --width 1280 --wait 5000
       - name: Optimize PNGs
         run: |-
