@@ -51,6 +51,7 @@ jobs:
           shot-scraper https://speakers24.ru/ --width 1280 --wait 2000 -o "speakers24.ru.$today.png" && \
           shot-scraper https://ecotrails.amgold.ru/ --width 1280 --wait 10000 -o "ecotrails.$today.png" && \
           shot-scraper https://ecotrails.amgold.ru/ratings --width 1280 --wait 10000 -o "ecotrails-ratings.$today.png" && \
+          shot-scraper https://ecotrails.amgold.ru/u/Hazadus --width 1280 --wait 10000 -o "ecotrails-hazadus.$today.png" && \
           shot-scraper https://hazadus.github.io/knowledge/ --width 1280 --wait 2000 -o "knowdledge.$today.png" && \
           shot-scraper https://github.com/hazadus/ --width 1280 --wait 5000 -o "github-hazadus.$today.png" && \
           shot-scraper https://steamcommunity.com/id/hazadus/ --width 1280 --wait 10000 -o "steam-profile.$today.png"
