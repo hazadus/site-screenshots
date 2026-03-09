@@ -49,6 +49,7 @@ jobs:
 
           shot-scraper https://github.com/hazadus/ --width 1280 --wait 5000 -o "github-hazadus.$today.png" || true
           shot-scraper https://steamcommunity.com/id/hazadus/ --width 1280 --wait 10000 -o "steam-profile.$today.png" || true
+          shot-scraper https://myshows.me/hazadus --width 1280 --wait 10000 -o "myshows.$today.png" || true
       - name: Optimize PNGs
         run: |-
           oxipng -o 4 -i 0 --strip safe *.png && \
